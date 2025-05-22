@@ -28,8 +28,8 @@ A Python tool that automatically downloads videos from RedNote (Xiaohongshu) and
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/rednote.git
-cd rednote
+git clone https://github.com/mrxehmad/rednote-instagram-auto-uploader
+cd rednote-instagram-auto-uploader
 ```
 
 2. Install required packages:
@@ -87,25 +87,6 @@ python main.py --url-file my_urls.txt --downloads-dir my_downloads
 
 Note: Command line arguments override settings in `.env` file.
 
-## Project Structure
-
-```
-rednote/
-├── downloader/
-│   ├── __init__.py
-│   ├── download.py
-│   └── utils.py
-├── uploader/
-│   ├── __init__.py
-│   ├── upload.py
-│   ├── auth.py
-│   └── utils.py
-├── main.py
-├── requirements.txt
-├── .env.example
-├── .env
-└── README.md
-```
 
 ## Security Notes
 
