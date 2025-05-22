@@ -1,0 +1,8 @@
+   # Instagram credentials
+   INSTAGRAM_USERNAME=your_username
+   INSTAGRAM_PASSWORD=your_password
+
+   # Optional settings
+   DEBUG=false
+   CONTINUOUS_MODE=false
+   CHECK_INTERVAL=3600
