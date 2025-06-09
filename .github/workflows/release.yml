@@ -76,17 +76,25 @@ jobs:
           NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
           echo "new_version=${NEW_VERSION}" >> $GITHUB_OUTPUT
 
-      - name: Create Tag
+      - name: Create and Push Tag
         run: |
           git config --local user.email "github-actions@github.com"
           git config --local user.name "GitHub Action"
           git tag -a "${{ steps.calculate_version.outputs.new_version }}" -m "Release ${{ steps.calculate_version.outputs.new_version }}"
           git push origin "${{ steps.calculate_version.outputs.new_version }}"
+          # Wait for tag to be available
+          sleep 5
+
+      - name: Verify Tag
+        run: |
+          git fetch --tags
+          git tag -l "${{ steps.calculate_version.outputs.new_version }}"
 
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.calculate_version.outputs.new_version }}
           files: |
             requirements.txt
             main.py
