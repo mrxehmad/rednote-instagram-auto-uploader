@@ -96,8 +96,11 @@ jobs:
           files: |
             requirements.txt
             main.py
-            downloader/*.py
-            uploader/*.py
+            downloader/download.py
+            downloader/utils.py
+            uploader/auth.py
+            uploader/upload.py
+            uploader/utils.py
             tags.txt
           generate_release_notes: true
           draft: false
