@@ -1,17 +1,6 @@
 name: Create Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      version_type:
-        description: 'Version type to increment'
-        required: true
-        default: 'patch'
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
   push:
     branches:
       - main
@@ -90,6 +79,15 @@ jobs:
           git fetch --tags
           git tag -l "${{ steps.calculate_version.outputs.new_version }}"
 
+      - name: List Files
+        run: |
+          echo "Current directory contents:"
+          ls -la
+          echo "Downloader directory contents:"
+          ls -la downloader/
+          echo "Uploader directory contents:"
+          ls -la uploader/
+
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
@@ -98,12 +96,12 @@ jobs:
           files: |
             requirements.txt
             main.py
-            downloader/**/*.py
-            uploader/**/*.py
-            .env.example
+            downloader/*.py
+            uploader/*.py
             tags.txt
           generate_release_notes: true
           draft: false
           prerelease: false
+          fail_on_unmatched_files: false
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }} 
