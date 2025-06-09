@@ -12,7 +12,7 @@ def upload_reel(video_path, caption, debug=False):
     Upload a video as a reel to Instagram
     
     Args:
-        video_path (str): Path to the video file
+        video_path (str): Path to the video file.
         caption (str): Caption for the reel
         debug (bool): Enable debug mode
     
