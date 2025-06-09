@@ -79,32 +79,13 @@ jobs:
           git fetch --tags
           git tag -l "${{ steps.calculate_version.outputs.new_version }}"
 
-      - name: List Files
-        run: |
-          echo "Current directory contents:"
-          ls -la
-          echo "Downloader directory contents:"
-          ls -la downloader/
-          echo "Uploader directory contents:"
-          ls -la uploader/
-
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.calculate_version.outputs.new_version }}
-          files: |
-            requirements.txt
-            main.py
-            downloader/download.py
-            downloader/utils.py
-            uploader/auth.py
-            uploader/upload.py
-            uploader/utils.py
-            tags.txt
           generate_release_notes: true
           draft: false
           prerelease: false
-          fail_on_unmatched_files: false
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }} 
