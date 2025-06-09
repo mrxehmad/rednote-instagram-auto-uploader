@@ -1,9 +1,20 @@
 name: Create Release
 
 on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version type to increment'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
   push:
     branches:
-      - main  # or master, depending on your default branch
+      - main
     paths-ignore:
       - 'README.md'
       - 'docs/**'
@@ -15,6 +26,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -26,12 +39,50 @@ jobs:
           python -m pip install --upgrade pip
           pip install build
 
+      - name: Get latest version
+        id: get_version
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.3.0")
+          echo "latest_tag=${LATEST_TAG}" >> $GITHUB_OUTPUT
+
+      - name: Calculate new version
+        id: calculate_version
+        run: |
+          LATEST_TAG="${{ steps.get_version.outputs.latest_tag }}"
+          VERSION_TYPE="${{ github.event.inputs.version_type || 'patch' }}"
+          
+          # Remove 'v' prefix and split into array
+          VERSION=${LATEST_TAG#v}
+          IFS='.' read -r -a VERSION_PARTS <<< "$VERSION"
+          
+          MAJOR=${VERSION_PARTS[0]}
+          MINOR=${VERSION_PARTS[1]}
+          PATCH=${VERSION_PARTS[2]}
+          
+          case $VERSION_TYPE in
+            "major")
+              MAJOR=$((MAJOR + 1))
+              MINOR=0
+              PATCH=0
+              ;;
+            "minor")
+              MINOR=$((MINOR + 1))
+              PATCH=0
+              ;;
+            "patch")
+              PATCH=$((PATCH + 1))
+              ;;
+          esac
+          
+          NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+          echo "new_version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+
       - name: Create Tag
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git tag -a "v$(date +'%Y.%m.%d')" -m "Release v$(date +'%Y.%m.%d')"
-          git push origin "v$(date +'%Y.%m.%d')"
+          git tag -a "${{ steps.calculate_version.outputs.new_version }}" -m "Release ${{ steps.calculate_version.outputs.new_version }}"
+          git push origin "${{ steps.calculate_version.outputs.new_version }}"
 
       - name: Create Release
         id: create_release
