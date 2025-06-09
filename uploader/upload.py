@@ -13,7 +13,7 @@ def upload_reel(video_path, caption, debug=False):
     
     Args:
         video_path (str): Path to the video file.
-        caption (str): Caption for the reel
+        caption (str): Caption for the reel.
         debug (bool): Enable debug mode
     
     Returns:
