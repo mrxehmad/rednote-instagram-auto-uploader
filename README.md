@@ -16,9 +16,9 @@ A Python tool that automatically downloads videos from RedNote (Xiaohongshu) and
 >Currently, the tool may not work reliably due to two primary issues:
 >
 >1. **Old or expired RedNote links** – Some URLs may no longer be valid or accessible.
->2. **IP detection issues** – RedNote might be detecting and blocking certain IP ranges, including >residential IPs. Access may succeed occasionally, but is inconsistent.
+>2. **IP detection issues** – RedNote might be detecting and blocking certain IP ranges, including residential IPs. Access may succeed occasionally, but is inconsistent.
 >
->We're actively investigating possible workarounds. If you have experience with bypassing such >restrictions or would like to contribute solutions, **help is welcome!**
+>We're actively investigating possible workarounds. If you have experience with bypassing such restrictions or would like to contribute solutions, **help is welcome!**
 
 ---
 
