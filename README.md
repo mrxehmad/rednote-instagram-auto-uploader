@@ -12,6 +12,16 @@ A Python tool that automatically downloads videos from RedNote (Xiaohongshu) and
 - Smart caption handling with fallback to random hashtags
 - Automatic video format conversion for Instagram compatibility
 
+> [!NOTE]  
+>Currently, the tool may not work reliably due to two primary issues:
+>
+>1. **Old or expired RedNote links** – Some URLs may no longer be valid or accessible.
+>2. **IP detection issues** – RedNote might be detecting and blocking certain IP ranges, including >residential IPs. Access may succeed occasionally, but is inconsistent.
+>
+>We're actively investigating possible workarounds. If you have experience with bypassing such >restrictions or would like to contribute solutions, **help is welcome!**
+
+---
+
 ## Requirements
 
 - Python 3.8 or higher
@@ -130,4 +140,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Disclaimer
 
-This tool is for educational purposes only. Please respect Instagram's terms of service and RedNote's content policies when using this tool. 
+This tool is for educational purposes only. Please respect Instagram's terms of service and RedNote's content policies when using this tool.
